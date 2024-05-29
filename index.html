@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>TravelTales</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js"></script>
+</head>
+
+<body onload="loadLeisureTrips()">
+  <header>
+    <!-- nav desktop -->
+    <nav class="w3-bar w3-flat-midnight-blue w3-padding">
+      <a href="#home" class="w3-bar-item  w3-button">
+        <i class="fa fa-home"></i>
+      </a>
+      <a href="#map" class="w3-bar-item w3-button w3-hide-small w3-right">Map</a>
+      <a href="#trips" class="w3-bar-item w3-button w3-hide-small w3-right">My trips</a>
+      <a href="#add" class="w3-bar-item w3-button w3-hide-small w3-right">Add a trip</a>
+      <a href="#about" class="w3-bar-item w3-button w3-hide-small w3-right">About</a>
+      <button class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+        onclick="document.getElementById('sub').classList.toggle('w3-hide');"> &#x2261; </button>
+    </nav>
+
+    <!-- nav mobile -->
+    <nav id="sub" class="w3-bar-block w3-flat-midnight-blue w3-hide w3-padding w3-hide-medium w3-hide-large">
+      <a href="#about" class="w3-bar-item w3-button">About</a>
+      <a href="#add" class="w3-bar-item w3-button">Add a trip</a>
+      <a href="#trips" class="w3-bar-item w3-button">My trips</a>
+      <a href="#map" class="w3-bar-item w3-button">Map</a>
+    </nav>
+  </header>
+
+  <main class="w3-container w3-padding-large">
+    <!-- home -->
+    <section id="home" class="w3-center w3-padding-48 w3-content">
+      <h1 class="w3-border-top w3-border-bottom">TravelTales: Your personal travel companion</h1>
+      <img class="w3-padding-16 w3-image" src="img/adventure.svg"
+        alt="An adventurous scene with mountains, trees, and a person hiking">
+      <div>
+        <a href="https://storyset.com/nature">Nature illustrations by Storyset</a>
+      </div>
+    </section>
+
+    <!-- about -->
+    <section id="about" class="w3-row w3-padding-48 w3-content">
+      <h2 id="aboutHeader">About</h2>
+      <div class="w3-col m9">
+        <p> Welcome to <strong>TravelTales</strong>: your ultimate platform for documenting and sharing your travel
+          experiences! Our user-friendly web application allows you to effortlessly record your adventures and visualize
+          your journeys on an interactive world map. </p>
+        <p> To start capturing your <strong>leisure travels</strong>, simply fill out the form below with essential
+          details such as <em>Title</em>, <em>Reason</em>, <em>Country</em>, <em>City</em>, <em>Latitude</em>,
+          <em>Longitude</em>, and a brief <em>description</em>. Note that <strong>only</strong> leisure travels will be
+          displayed! It's
+          important to provide all the information for your records to be accurately saved. Once you've completed the
+          form, just hit the " <strong>Add Trip</strong>" button, and voila!
+        </p>
+        <p> Scrolling down, you'll find a card displaying the details of your newly added trip. Further down the page,
+          explore the dynamic world map, where each dot represents a place you've visited. <br> Get ready to embark on a
+          virtual journey and add as many trips as you'd like! </p>
+        <p>Happy exploring and safe travels! :)</p>
+      </div>
+      <div class="w3-center w3-col m3">
+        <img class="w3-image" src="img/world.svg"
+          alt="A woman resting her elbows on planet earth thinking about traveling">
+        <a href="https://storyset.com/nature">Nature illustrations by Storyset</a>
+      </div>
+    </section>
+
+    <!-- add trip -->
+    <section id="add" class="w3-padding-48 w3-content">
+      <h2>Add a trip</h2>
+      <form class="w3-container w3-padding-24 w3-light-grey w3-card-4" onsubmit="return false">
+        <div class="w3-container">
+          <div id="message"></div>
+          <div class="w3-margin-top">
+            <label for="title">Trip title</label>
+            <input class="w3-input w3-border-0 w3-round" id="title" name="Title" type="text"
+              placeholder="Discovering the Swiss Alps" pattern=".{1,90}" title="1-90 characters" required>
+          </div>
+
+          <div class="w3-margin-top">
+            <label for="reason">Reason (only leisure trips will be displayed below)</label>
+            <select class="w3-select w3-round" id="reason" name="Reason" required>
+              <option value="" disabled selected>Choose your option</option>
+              <option value="leisure">Leisure</option>
+              <option value="business">Business</option>
+            </select>
+          </div>
+
+          <div class="w3-margin-top">
+            <label for="country">Country</label>
+            <input class="w3-input w3-border-0 w3-round" id="country" name="Country" type="text"
+              placeholder="Switzerland" pattern=".{1,30}" title="1-30 characters" required>
+          </div>
+
+          <div class="w3-margin-top">
+            <label for="city">City</label>
+            <input class="w3-input w3-border-0 w3-round" id="city" name="City" type="text" placeholder="Wallis"
+              pattern=".{1,30}" title="1-30 characters" required>
+          </div>
+
+          <div class="w3-margin-top">
+            <label for="latitude">Latitude</label>
+            <input class="w3-input w3-border-0 w3-round" id="latitude" name="Latitude" type="number"
+              placeholder="46.0190" min="-90" max="90" step="any" required>
+          </div>
+
+          <div class="w3-margin-top">
+            <label for="longitude">Longitude</label>
+            <input class="w3-input w3-border-0 w3-round" id="longitude" name="Longitude" type="number"
+              placeholder="7.7454" min="-180" max="180" step="any" required>
+          </div>
+
+          <div class="w3-margin-top">
+            <label for="description">Description:</label>
+            <textarea id="description" name="Description" class="w3-input w3-border-0 w3-round" rows="10" cols="20"
+              required></textarea>
+          </div>
+
+          <button class="w3-btn w3-flat-midnight-blue w3-margin-top w3-round w3-right" onclick="validateAllAndAdd()">Add
+            trip</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- my trips -->
+    <section id="trips" class="w3-padding-48 w3-content">
+      <h2>My trips</h2>
+      <h3 class="w3-padding-24">Leisure</h3>
+      <div id="leisure-trips"></div>
+    </section>
+
+    <!-- map -->
+    <section id="map" class="w3-padding-48 w3-content">
+      <h2>Map</h2>
+      <canvas id="travel-map"></canvas>
+    </section>
+  </main>
+</body>
+
+</html>
