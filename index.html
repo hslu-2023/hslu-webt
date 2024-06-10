@@ -51,15 +51,15 @@
     <section id="about" class="w3-row w3-padding-48 w3-content">
       <h2 id="aboutHeader">About</h2>
       <div class="w3-col m9">
-        <p> Welcome to <strong>TravelTales</strong>: your ultimate platform for documenting and sharing your travel
+        <p> Welcome to TravelTales: your ultimate platform for documenting and sharing your travel
           experiences! Our user-friendly web application allows you to effortlessly record your adventures and visualize
-          your journeys on an interactive world map. </p>
-        <p> To start capturing your <strong>leisure travels</strong>, simply fill out the form below with essential
-          details such as <em>Title</em>, <em>Reason</em>, <em>Country</em>, <em>City</em>, <em>Latitude</em>,
-          <em>Longitude</em>, and a brief <em>description</em>. Note that <strong>only</strong> leisure travels will be
+          your journeys on a world map. </p>
+        <p> To start capturing your leisure travels, simply fill out the form below with essential
+          details such as Title, Reason, Country, City, Latitude,
+          Longitude, and a brief description. Note that only leisure travels will be
           displayed! It's
           important to provide all the information for your records to be accurately saved. Once you've completed the
-          form, just hit the " <strong>Add Trip</strong>" button, and voila!
+          form, just hit the "Add Trip" button, and voila!
         </p>
         <p> Scrolling down, you'll find a card displaying the details of your newly added trip. Further down the page,
           explore the dynamic world map, where each dot represents a place you've visited. <br> Get ready to embark on a
@@ -86,7 +86,7 @@
           </div>
 
           <div class="w3-margin-top">
-            <label for="reason">Reason (only leisure trips will be displayed below)</label>
+            <label for="reason">Reason <b>(only leisure trips will be displayed below)</b></label>
             <select class="w3-select w3-round" id="reason" name="Reason" required>
               <option value="" disabled selected>Choose your option</option>
               <option value="leisure">Leisure</option>
@@ -134,7 +134,9 @@
     <section id="trips" class="w3-padding-48 w3-content">
       <h2>My trips</h2>
       <h3 class="w3-padding-24">Leisure</h3>
-      <div id="leisure-trips"></div>
+      <div id="leisure-trips">
+        <p>No leisure trips found.</p>
+      </div>
     </section>
 
     <!-- map -->

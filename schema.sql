@@ -10,8 +10,8 @@ create table trips (
     reason varchar(10),
     country varchar(30),
     city varchar(30),
-    latitude int,
-    longitude int,
+    latitude float,
+    longitude float,
     description text,
     primary key (tripID)
 )

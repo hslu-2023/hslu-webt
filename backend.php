@@ -84,7 +84,7 @@ $method = $_SERVER["REQUEST_METHOD"];
 $body = file_get_contents("php://input");
 $request = json_decode($body, true);
 
-$conn = mysqli_connect("localhost", "root", "root", "travel_tales");
+$conn = mysqli_connect("localhost", "root", "", "travel_tales");
 
 if ($method == "GET") {
     validate(
@@ -130,7 +130,7 @@ if ($method == "GET") {
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param(
         $stmt,
-        "ssssiis",
+        "ssssdds",
         $title,
         $reason,
         $country,

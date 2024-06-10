@@ -7,9 +7,11 @@ function parseJson(text) {
 }
 
 // display message on top of form
-function displayMessage(messageText) {
-  const message = document.getElementById("message");
+function displayMessage(messageText, color) {
+  let message = document.getElementById("message");
   message.innerText = messageText;
+  message.classList = "";
+  message.classList.add("w3-text-" + color);
 }
 
 function getInputElementValues() {
@@ -27,7 +29,7 @@ function getInputElementValues() {
 function displayTrips(trips) {
   initCanvas(trips);
 
-  const leisureTripsElement = document.getElementById("leisure-trips");
+  let leisureTripsElement = document.getElementById("leisure-trips");
 
   leisureTripsElement.innerHTML = "";
 
@@ -35,7 +37,7 @@ function displayTrips(trips) {
     leisureTripsElement.innerHTML = "<p>No leisure trips found.</p>";
   } else {
     trips.forEach((trip) => {
-      const div = document.createElement("div");
+      let div = document.createElement("div");
       div.classList.add("w3-card-4", "w3-margin-top", "w3-round");
       div.innerHTML = `
        <header class="w3-container w3-flat-midnight-blue w3-round"><h3>${trip.title}</h3></header>
@@ -54,40 +56,49 @@ function displayTrips(trips) {
 }
 
 function loadLeisureTrips() {
-  const xhr = new XMLHttpRequest();
-  xhr.onerror = () => displayMessage("Application error: cannot send request");
-  xhr.ontimeout = () => displayMessage("Application error: timeout");
+  initCanvas();
+
+  let xhr = new XMLHttpRequest();
+  xhr.onerror = () =>
+    displayMessage("Application error: cannot send request", "red");
+  xhr.ontimeout = () => displayMessage("Application error: timeout", "red");
   xhr.onload = function () {
-    const response = parseJson(xhr.responseText);
+    let response = parseJson(xhr.responseText);
     if (xhr.status == 200 && response) {
       displayTrips(response.trips);
     } else {
-      displayMessage("Application error: cannot validate backend response ");
+      displayMessage(
+        "Application error: cannot validate backend reply - " + xhr.status,
+        "red"
+      );
     }
   };
-
   xhr.open("GET", "backend.php", true);
   xhr.send();
 }
 
 function addTrip() {
-  const { title, reason, country, city, latitude, longitude, description } =
+  let { title, reason, country, city, latitude, longitude, description } =
     getInputElementValues();
 
-  const xhr = new XMLHttpRequest();
-  xhr.onerror = () => displayMessage("Application error: cannot send request");
-  xhr.ontimeout = () => displayMessage("Application error: timeout");
+  let xhr = new XMLHttpRequest();
+  xhr.onerror = () =>
+    displayMessage("Application error: cannot send request", "red");
+  xhr.ontimeout = () => displayMessage("Application error: timeout", "red");
   xhr.onload = function () {
-    const response = parseJson(xhr.responseText);
+    let response = parseJson(xhr.responseText);
     if (xhr.status == 200 && response) {
-      displayMessage(response.message);
+      displayMessage(response.message, "green");
       loadLeisureTrips();
     } else {
-      displayMessage("Application error: " + response.message);
+      displayMessage(
+        "Application error: cannot validate backend reply - " + xhr.status,
+        "red"
+      );
     }
   };
 
-  const request = {
+  let request = {
     title,
     reason,
     country,
@@ -116,7 +127,10 @@ function addInputEventListeners() {
 // validate each input reactive validation
 function validateInput(inputElement) {
   if (!inputElement.checkValidity()) {
-    message.innerText += `${inputElement.name}: ${inputElement.validationMessage}\n`;
+    displayMessage(
+      inputElement.name + ": " + inputElement.validationMessage,
+      "yellow"
+    );
   } else {
     displayMessage("");
   }
@@ -124,7 +138,7 @@ function validateInput(inputElement) {
 
 function validateAllAndAdd() {
   // clear previous messages
-  displayMessage("");
+  displayMessage("", "yellow");
 
   let inputElements = document.querySelectorAll("input, select, textarea");
 
@@ -133,6 +147,8 @@ function validateAllAndAdd() {
     let inputElement = document.getElementById(input.id);
     if (!inputElement.checkValidity()) {
       message.innerText += `${inputElement.name}: ${inputElement.validationMessage}\n`;
+    } else if (inputElement.value.trim() == "") {
+      message.innerText += `${inputElement.name}: Can not be empty\n`;
     }
   });
 
@@ -149,10 +165,7 @@ function getCanvasCoordinates(latitude, longitude) {
   let x = (longitude + 180) * (canvas.width / 360);
   let y = (90 - latitude) * (canvas.height / 180);
 
-  return {
-    x,
-    y,
-  };
+  return { x, y };
 }
 
 function initCanvas(trips) {
@@ -163,16 +176,18 @@ function initCanvas(trips) {
   img.src = "img/map.svg";
 
   img.onload = function () {
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    canvas.width = this.naturalWidth;
+    canvas.height = this.naturalHeight;
+    ctx.drawImage(this, 0, 0);
 
     ctx.fillStyle = "rgb(255,114,94)";
-    ctx.fillRect(10, 135, 10, 10);
+    ctx.fillRect(100, 2250, 100, 100);
     ctx.fillStyle = "black";
-    ctx.font = "9px Arial";
-    ctx.fillText("Leisure trips", 23, 143);
+    ctx.font = "120px Arial";
+    ctx.fillText("Leisure trips", 250, 2340);
 
     // add a circle for each saved trip
-    if (trips.length) {
+    if (trips) {
       trips.forEach((trip) => {
         let { x, y } = getCanvasCoordinates(
           parseFloat(trip.latitude),
@@ -180,10 +195,10 @@ function initCanvas(trips) {
         );
 
         ctx.beginPath();
-        ctx.arc(x, y, 2, 0, 2 * Math.PI, false);
+        ctx.arc(x, y, 30, 0, 2 * Math.PI, false);
         ctx.fillStyle = "rgb(255,114,94)";
         ctx.fill();
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 5;
         ctx.strokeStyle = "black";
         ctx.stroke();
       });
